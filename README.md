@@ -1,1 +1,116 @@
-# Will-you-be-my-valentines-
+# Will-you-be-my-valentines-<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Be My Valentine?</title>
+  <style>
+    :root {
+      --pink: #ff4d6d;
+      --bg: #fff0f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      font-family: -apple-system, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .card {
+      background: #fff;
+      width: min(420px, 92vw);
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      text-align: center;
+    }
+    h1 { margin: 0 0 8px; }
+    p { margin: 0 0 18px; opacity: .85; }
+    .hearts { font-size: 22px; margin-bottom: 6px; }
+    .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    }
+    #yes {
+      background: var(--pink);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(255,77,109,.35);
+    }
+    #yes:hover { transform: translateY(-1px); }
+    #no {
+      background: #e9ecef;
+      color: #222;
+    }
+    #msg {
+      margin-top: 16px;
+      min-height: 28px;
+      font-size: 16px;
+    }
+    .win {
+      font-weight: 700;
+      color: var(--pink);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="hearts">💘💘💘</div>
+    <h1>Will you be my Valentine?</h1>
+    <p>I promise snacks, laughs, and a great night 😌</p>
+
+    <div class="btns">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 🙃</button>
+    </div>
+
+    <div id="msg"></div>
+  </div>
+
+  <script>
+    const yes = document.getElementById('yes');
+    const no = document.getElementById('no');
+    const msg = document.getElementById('msg');
+
+    let scale = 1;
+    const shrinkBy = 0.85; // shrink 15% each click
+    const minScale = 0.25;
+
+    const replies = [
+      "Ouch 😭 are you sure?",
+      "Okay but like… think again 🥺",
+      "I’ll make it up to you 👀💐",
+      "Last chance? 😳",
+      "It’s getting tiny… just saying 😅"
+    ];
+    let i = 0;
+
+    yes.addEventListener('click', () => {
+      msg.textContent = "LET’S GOOOO 😍💐 Happy Valentine’s Day 💖";
+      msg.classList.add('win');
+      yes.style.transform = "scale(1.08)";
+      setTimeout(() => yes.style.transform = "scale(1)", 180);
+    });
+
+    no.addEventListener('click', () => {
+      scale = Math.max(minScale, scale * shrinkBy);
+      no.style.transform = `scale(${scale})`;
+      no.style.opacity = Math.max(0.4, scale);
+      msg.textContent = replies[i % replies.length];
+      i++;
+    });
+  </script>
+</body>
+</html>
